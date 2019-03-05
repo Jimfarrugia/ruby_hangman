@@ -49,8 +49,8 @@ def setup
   @letters_used = []
   # progress will be the secret_word letters replaced with "_"
   @progress = []
-  # until secret_word contains only alphabetic characters and is < 16 chars
-  until @secret_word =~ /[a-zA-Z]/ and @secret_word.length < 16
+  # until secret_word matches this /regular expression/
+  until @secret_word =~ /^[a-zA-Z]{4,12}$/ # 4-12 alphabetic characters
     # generate random word (country)
     @secret_word = Faker::Address.country.upcase
   end
@@ -80,6 +80,7 @@ def get_user_guess
   # if guess is already stored in letters_used
   if @letters_used.include?(guess)
     puts "You've already tried that letter..."
+    puts "So far, you've tried: #{@letters_used.join(', ')}"
     return get_user_guess #restart the method
   end
   # guess has passed validation at this point
@@ -89,18 +90,26 @@ def get_user_guess
 
   # if the guessed letter is found in secret_word
   if @secret_word.include?(guess)
-    @progress = @progress.split.join # remove all spaces from progress (temporarily)
+    @progress = @progress.split.join # remove all spaces from progress string (temporarily)
     i = 0 # iterator / counter
     while i < @secret_word.length # iterate/count once for each item in array
       if @secret_word.chars[i] == guess # if value at current index == guess
-        @progress[i] = @secret_word.chars[i] # assign that value to the item ("_") at that index in @progress
+        @progress[i] = @secret_word.chars[i] # assign the value at current index to the item/underscore at said index in @progress
       end
       i += 1 # increment
     end
-    #@progress = @progress
+    # split then rejoin chars with spaces between
+    @progress = @progress.split.join("\s")
+    # @progress does not contain any underscores
+    if !@progress.include?("_")
+      # game_over('win')
+      puts "You won the game! Congratulations!"# debugging / testing
+    else
+      puts "So far, you've tried: #{@letters_used.join(', ')}"
+      get_user_guess
+    end
   end
   p @progress
-  get_user_guess
 end
 
 welcome
