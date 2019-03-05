@@ -54,9 +54,9 @@ def setup
   # secret_word letters replaced by "_"
   @secret_word.each_char {|c| 
       if c != " " then 
-          @progress.push("_")
+        @progress.push("_")
       else
-          @progress.push(" ") 
+        @progress.push(" ") 
       end
   }
   @progress = @progress.join(" ")
@@ -64,6 +64,7 @@ end
 
 def get_user_guess
   puts "Guess a letter: #{@progress}"
+  p "testing"
 end
 
 welcome
