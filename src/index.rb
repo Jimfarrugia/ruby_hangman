@@ -1,10 +1,12 @@
 require 'faker'
+require 'colorize'
 
 @secret_word = nil
 @attempts_left = nil
 @letters_used = nil
 @progress = nil
 @username = nil
+@secret_word_set = false
 
 # Determine weather response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
 def yes? response
@@ -50,11 +52,19 @@ def setup
   @letters_used = []
   # progress will be the secret_word letters replaced with "_"
   @progress = []
+  
+  # checking if the @secret_word is not already set
+  if(@secret_word_set)
+    @secret_word = Faker::Address.unique.country.upcase
+  end
+
   # until secret_word matches this /regular expression/
   until @secret_word =~ /^[a-zA-Z]{4,12}$/ # 4-12 alphabetic characters
     # generate random word (country)
-    @secret_word = Faker::Address.country.upcase
+    @secret_word = Faker::Address.unique.country.upcase
+    @secret_word_set = true
   end
+  
   # secret_word letters replaced by "_"
   @secret_word.each_char {|c| 
       # if char is not a space
@@ -66,19 +76,21 @@ def setup
         @progress.push(" ") 
       end
   }
+  #joining progress array with spaces for legibility
   @progress = @progress.join(" ")
 end
 
+# display end_game result
 def end_game(result)
   if result == "win"
-    puts "The word was #{@secret_word}."
+    puts "The word was #{@secret_word}.".colorize(:green)
     victory_screen = "Congratulations – You’re on track to having better vocabulary :)\n"
-    puts victory_screen
+    puts victory_screen.colorize(:green)
   end
   if result == "loss"
     game_over_screen = "Game Over – Better luck next time :(\n"
-    puts "The word was #{@secret_word}.\n"
-    puts game_over_screen
+    puts "The word was #{@secret_word}.\n".colorize(:red)
+    puts game_over_screen.colorize(:red)
   end
   
   puts "Play again? (Y/N)"
@@ -87,7 +99,7 @@ def end_game(result)
     puts "Thanks for playing #{@username}. See you next time!\n"
     exit
   else
-    setup
+    setup #new game 
     get_user_guess
   end
 end
@@ -134,7 +146,7 @@ def get_user_guess
     if !@progress.include?("_")
       end_game("win") # victory
     else
-      puts "Good guess!"
+      puts "Good guess!".colorize(:green)
       puts "So far, you've tried: #{@letters_used.join(', ')}"
       puts "\n" # new line
       get_user_guess
@@ -144,7 +156,7 @@ def get_user_guess
     if @attempts_left < 1
       end_game("loss") # game over
     else
-      puts "Bad luck!"
+      puts "Bad luck!".colorize(:red)
       puts "So far, you've tried: #{@letters_used.join(', ')}" # identical to above, dry this out later
       puts "You have #{@attempts_left} lives left."
       puts "\n" # new line

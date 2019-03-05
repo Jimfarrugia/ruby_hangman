@@ -1,5 +1,6 @@
 require 'faker'
 
+# setup the game by assigning value to instance variables to be used throughout
 def setup
     # attempts allowed before game over
     attempts_left = nil
@@ -20,7 +21,7 @@ def setup
             progress.push(" ") 
         end
     }
-
+    #joining progress array with spaces for legibility
     p progress.join(" ")
 end
 
