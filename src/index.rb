@@ -19,7 +19,7 @@ def yes? response
     end
 end
 
-
+# Welcome the user, present the rules / guide to the game, set a username
 def welcome
   welcome_message  = "Welcome to Hangman!\n\n"
   welcome_message += "How to play:\n"
@@ -42,6 +42,7 @@ def welcome
   if @username.strip == "" then @username = "Player" end
 end
 
+# setup the game by assigning value to instance variables to be used throughout
 def setup
   # attempts allowed before game over
   @attempts_left = 7
@@ -68,6 +69,10 @@ def setup
   @progress = @progress.join(" ")
 end
 
+# 1. get and validate the user's input,
+# 2. handle point calculation (add to progress or lose a life)
+# 3. repeat 1 and 2 until win-condition is met (all secret_word letters guessed) 
+#    or loss-condition is met (0 lives left).
 def get_user_guess
   # p @secret_word # debugging cheat
   puts "Guess a letter:  #{@progress}"
@@ -105,8 +110,8 @@ def get_user_guess
     # @progress does not contain any underscores
     if !@progress.include?("_")
       # end_game("win")
-      puts "You won the game! Congratulations!"# debugging / testing
-      puts "The word was #{@secret_word}."
+      puts "You won the game! Congratulations!"# debugging / testing / temporary
+      puts "The word was #{@secret_word}."# debugging / testing / temporary
     else
       puts "Good guess!"
       puts "So far, you've tried: #{@letters_used.join(', ')}"
@@ -116,9 +121,9 @@ def get_user_guess
   else # guessed letter isn't found in @secret_word
     @attempts_left -= 1 # lose a life
     if @attempts_left < 1
-      #end_game("loss")
-      puts "Game Over!  You ran out of lives!"# debugging / testing
-      puts "The word was #{@secret_word}."
+      # end_game("loss")
+      puts "Game Over!  You ran out of lives!"# debugging / testing / temporary
+      puts "The word was #{@secret_word}."# debugging / testing / temporary
     else
       puts "Bad luck!"
       puts "So far, you've tried: #{@letters_used.join(', ')}" # identical to above, dry this out later
@@ -132,12 +137,11 @@ end
 
 welcome
 
-
 setup
 
 puts "\nGood luck, #{@username}!"
 puts "The word is the name of a country."
-puts "The word contains #{@secret_word.length} letters." # @secret_word.length returns an 'undefined method' error. But I've used methods like .join in some of the string interpolation above.  Why doesn't it work here?  Maybe clean this up later. (redundant variable)
+puts "The word contains #{@secret_word.length} letters."
 
+get_user_guess # game loop
 
-get_user_guess
