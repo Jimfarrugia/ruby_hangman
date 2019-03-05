@@ -102,14 +102,23 @@ def get_user_guess
     @progress = @progress.split.join("\s")
     # @progress does not contain any underscores
     if !@progress.include?("_")
-      # game_over('win')
+      # end_game("win")
       puts "You won the game! Congratulations!"# debugging / testing
     else
       puts "So far, you've tried: #{@letters_used.join(', ')}"
       get_user_guess
     end
+  else # guessed letter isn't found in @secret_word
+    @attempts_left -= 1 # lose a life
+    if @attempts_left < 1
+      #end_game("loss")
+      puts "Game Over!  You ran out of lives!"# debugging / testing
+    else
+      puts "So far, you've tried: #{@letters_used.join(', ')}" # identical to above, dry this out later
+      get_user_guess
+    end
   end
-  p @progress
+
 end
 
 welcome
