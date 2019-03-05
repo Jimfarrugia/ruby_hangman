@@ -69,18 +69,20 @@ def setup
 end
 
 def get_user_guess
-  p @secret_word # debugging
+  # p @secret_word # debugging
   puts "Guess a letter:  #{@progress}"
   guess = gets.strip.upcase
   # if guess doesn't match with any letter a-z or isn't a single character
   if guess !~ /[a-zA-Z]/ or guess.length != 1
     puts "Guess was invalid! Must be a single alphabetic character."
+    puts "\n" # new line
     return get_user_guess # restart the method
   end
   # if guess is already stored in letters_used
   if @letters_used.include?(guess)
     puts "You've already tried that letter..."
     puts "So far, you've tried: #{@letters_used.join(', ')}"
+    puts "\n" # new line
     return get_user_guess #restart the method
   end
   # guess has passed validation at this point
@@ -99,13 +101,17 @@ def get_user_guess
       i += 1 # increment
     end
     # split then rejoin chars with spaces between
-    @progress = @progress.split.join("\s")
+    @progress = @progress.chars.join("\s")
+    puts "this is where it should be joined"
     # @progress does not contain any underscores
     if !@progress.include?("_")
       # end_game("win")
       puts "You won the game! Congratulations!"# debugging / testing
+      puts "The word was #{@secret_word}."
     else
+      puts "Good guess!"
       puts "So far, you've tried: #{@letters_used.join(', ')}"
+      puts "\n" # new line
       get_user_guess
     end
   else # guessed letter isn't found in @secret_word
@@ -113,8 +119,12 @@ def get_user_guess
     if @attempts_left < 1
       #end_game("loss")
       puts "Game Over!  You ran out of lives!"# debugging / testing
+      puts "The word was #{@secret_word}."
     else
+      puts "Bad luck!"
       puts "So far, you've tried: #{@letters_used.join(', ')}" # identical to above, dry this out later
+      puts "You have #{@attempts_left} lives left."
+      puts "\n" # new line
       get_user_guess
     end
   end
@@ -126,7 +136,3 @@ welcome
 setup
 
 get_user_guess
-
-p "outside/after get_user_guess call"
-
-#return username
