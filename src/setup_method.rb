@@ -9,7 +9,8 @@ def setup
     progress = []
     
     # secret_word = “random_word_from_faker_gem”
-    secret_word = Faker::Address.country
+    secret_word = Faker::Address.unique.country || Faker::Food.unique.fruits
+    puts "#{secret_word}"
 
     # secret_word letters replaced by "_"
     secret_word.each_char {|c| 
