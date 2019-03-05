@@ -69,6 +69,29 @@ def setup
   @progress = @progress.join(" ")
 end
 
+def end_game(result)
+  if result == "win"
+    puts "The word was #{@secret_word}."
+    victory_screen = "Congratulations – You’re on track to having better vocabulary :)\n"
+    puts victory_screen
+  end
+  if result == "loss"
+    game_over_screen = "Game Over – Better luck next time :(\n"
+    puts "The word was #{@secret_word}.\n"
+    puts game_over_screen
+  end
+  
+  puts "Play again? (Y/N)"
+  
+  if not yes?(gets.chomp)
+    puts "Thanks for playing #{@username}. See you next time!\n"
+    exit
+  else
+    setup
+    get_user_guess
+  end
+end
+
 # 1. get and validate the user's input,
 # 2. handle point calculation (add to progress or lose a life)
 # 3. repeat 1 and 2 until win-condition is met (all secret_word letters guessed) 
@@ -109,9 +132,7 @@ def get_user_guess
     @progress = @progress.chars.join("\s")
     # @progress does not contain any underscores
     if !@progress.include?("_")
-      # end_game("win")
-      puts "You won the game! Congratulations!"# debugging / testing / temporary
-      puts "The word was #{@secret_word}."# debugging / testing / temporary
+      end_game("win") # victory
     else
       puts "Good guess!"
       puts "So far, you've tried: #{@letters_used.join(', ')}"
@@ -121,9 +142,7 @@ def get_user_guess
   else # guessed letter isn't found in @secret_word
     @attempts_left -= 1 # lose a life
     if @attempts_left < 1
-      # end_game("loss")
-      puts "Game Over!  You ran out of lives!"# debugging / testing / temporary
-      puts "The word was #{@secret_word}."# debugging / testing / temporary
+      end_game("loss") # game over
     else
       puts "Bad luck!"
       puts "So far, you've tried: #{@letters_used.join(', ')}" # identical to above, dry this out later
