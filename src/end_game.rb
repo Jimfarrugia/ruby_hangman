@@ -1,17 +1,4 @@
-
-@result = "win"
-# Determine weather response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
-def yes? response
-    case response
-      when "y", "Y", "yes", "Yes", "YES"
-        return true
-      when "n", "N", "no", "No", "NO"
-        return false
-      else
-        puts "Please enter yes or no:"
-        yes?(gets.chomp)
-      end
-  end
+# requires yes?, welcome (for username) and setup methods to test by itself
 
 def end_game(result)
     if result == "win"
@@ -30,8 +17,8 @@ def end_game(result)
         exit
     end
     
+    setup
+    # call get_user_guess
 end 
 
 end_game("win")
-# setup
-# get_user_guess
