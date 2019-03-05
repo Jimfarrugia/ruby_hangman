@@ -1,11 +1,12 @@
 require 'faker'
 
-secret_word = nil
-attempts_left = nil
-letters_used = nil
-progress = nil
-username = nil
+@secret_word = nil
+@attempts_left = nil
+@letters_used = nil
+@progress = nil
+@username = nil
 
+# Determine weather response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
 def yes? response
   case response
     when "y", "Y", "yes", "Yes", "YES"
@@ -17,6 +18,7 @@ def yes? response
       yes?(gets.chomp)
     end
 end
+
 
 def welcome
   welcome_message  = "Welcome to Hangman!\n\n"
@@ -36,40 +38,41 @@ def welcome
   end
 
   puts "Enter a username:"
-  username = gets.chomp
-  if username.strip == "" then username = "Player" end
+  @username = gets.chomp
+  if @username.strip == "" then @username = "Player" end
 end
 
 def setup
-    # attempts allowed before game over
-    attempts_left = nil
-    # empty array to store guesses
-    letters_used = []
-    # secret_word letters replaced by "_"
-    progress = []
-    
-    # secret_word = “random_word_from_faker_gem”
-    secret_word = Faker::Address.country
-
-    # secret_word letters replaced by "_"
-    secret_word.each_char {|c| 
-        if c != " " then 
-            progress.push("_")
-        else
-            progress.push(" ") 
-        end
-    }
-
-    p progress.join(" ")
+  # attempts allowed before game over
+  @attempts_left = 7
+  # empty array to store guesses
+  @letters_used = []
+  # secret_word letters replaced by "_"
+  @progress = []
+  # secret_word = “random_word_from_faker_gem”
+  @secret_word = Faker::Address.country
+  # secret_word letters replaced by "_"
+  @secret_word.each_char {|c| 
+      if c != " " then 
+          @progress.push("_")
+      else
+          @progress.push(" ") 
+      end
+  }
+  @progress = @progress.join(" ")
 end
 
-def get_user_guess progress
-  puts "Guess a letter: "
-  p progress
+def get_user_guess
+  puts "Guess a letter: #{@progress}"
 end
-
 
 welcome
-get_user_guess progress
+
+setup
+
+
+
+
+get_user_guess
 
 #return username
