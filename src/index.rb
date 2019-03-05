@@ -64,6 +64,7 @@ end
 
 def get_user_guess
   puts "Guess a letter: #{@progress}"
+  p "testing"
 end
 
 welcome
