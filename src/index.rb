@@ -1,4 +1,10 @@
 
+secret_word = nil
+attempts_left = nil
+letters_used = nil
+progress = nil
+username = nil
+
 def yes? response
   case response
     when "y", "Y", "yes", "Yes", "YES"
@@ -35,17 +41,11 @@ end
 
 #setup
 
-def get_user_guess
-  progress = progress # without this => undefined local variable
+def get_user_guess progress
   puts "Guess a letter: "
   p progress
 end
 
-secret_word = nil
-attempts_left = nil
-letters_used = nil
-progress = "abcdefg"
-username = nil
 
 welcome
 get_user_guess progress
