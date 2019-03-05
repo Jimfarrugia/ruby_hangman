@@ -69,7 +69,7 @@ def setup
 end
 
 def get_user_guess
-  # p @secret_word # debugging
+  # p @secret_word # debugging cheat
   puts "Guess a letter:  #{@progress}"
   guess = gets.strip.upcase
   # if guess doesn't match with any letter a-z or isn't a single character
@@ -102,7 +102,6 @@ def get_user_guess
     end
     # split then rejoin chars with spaces between
     @progress = @progress.chars.join("\s")
-    puts "this is where it should be joined"
     # @progress does not contain any underscores
     if !@progress.include?("_")
       # end_game("win")
@@ -133,6 +132,12 @@ end
 
 welcome
 
+
 setup
+
+puts "\nGood luck, #{@username}!"
+puts "The word is the name of a country."
+puts "The word contains #{@secret_word.length} letters." # @secret_word.length returns an 'undefined method' error. But I've used methods like .join in some of the string interpolation above.  Why doesn't it work here?  Maybe clean this up later. (redundant variable)
+
 
 get_user_guess
