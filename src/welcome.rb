@@ -10,6 +10,8 @@ def yes? response
     end
 end
 
+def welcome
+  
 welcome_message  = "Welcome to Hangman!\n\n"
 welcome_message += "How to play:\n"
 welcome_message += "* Try to find the secret word by guessing one letter at a time.\n"
@@ -30,4 +32,5 @@ puts "Enter a username:"
 username = gets.chomp
 if username.strip == "" then username = "Player" end
 
+end
 #return username
