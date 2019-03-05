@@ -19,7 +19,7 @@ def yes? response
     end
 end
 
-
+# Welcome the user, present the rules / guide to the game, set a username
 def welcome
   welcome_message  = "Welcome to Hangman!\n\n"
   welcome_message += "How to play:\n"
@@ -42,38 +42,106 @@ def welcome
   if @username.strip == "" then @username = "Player" end
 end
 
+# setup the game by assigning value to instance variables to be used throughout
 def setup
   # attempts allowed before game over
   @attempts_left = 7
   # empty array to store guesses
   @letters_used = []
-  # secret_word letters replaced by "_"
+  # progress will be the secret_word letters replaced with "_"
   @progress = []
-  # secret_word = “random_word_from_faker_gem”
-  @secret_word = Faker::Address.country
+  # until secret_word matches this /regular expression/
+  until @secret_word =~ /^[a-zA-Z]{4,12}$/ # 4-12 alphabetic characters
+    # generate random word (country)
+    @secret_word = Faker::Address.country.upcase
+  end
   # secret_word letters replaced by "_"
   @secret_word.each_char {|c| 
+      # if char is not a space
       if c != " " then 
+        # append an underscore to progress
         @progress.push("_")
       else
+        # append a space
         @progress.push(" ") 
       end
   }
   @progress = @progress.join(" ")
 end
 
+# 1. get and validate the user's input,
+# 2. handle point calculation (add to progress or lose a life)
+# 3. repeat 1 and 2 until win-condition is met (all secret_word letters guessed) 
+#    or loss-condition is met (0 lives left).
 def get_user_guess
-  puts "Guess a letter: #{@progress}"
-  p "testing"
+  # p @secret_word # debugging cheat
+  puts "Guess a letter:  #{@progress}"
+  guess = gets.strip.upcase
+  # if guess doesn't match with any letter a-z or isn't a single character
+  if guess !~ /[a-zA-Z]/ or guess.length != 1
+    puts "Guess was invalid! Must be a single alphabetic character."
+    puts "\n" # new line
+    return get_user_guess # restart the method
+  end
+  # if guess is already stored in letters_used
+  if @letters_used.include?(guess)
+    puts "You've already tried that letter..."
+    puts "So far, you've tried: #{@letters_used.join(', ')}"
+    puts "\n" # new line
+    return get_user_guess #restart the method
+  end
+  # guess has passed validation at this point
+
+  # append the letter / guess to letters_used 
+  @letters_used.push(guess)
+
+  # if the guessed letter is found in secret_word
+  if @secret_word.include?(guess)
+    @progress = @progress.split.join # remove all spaces from progress string (temporarily)
+    i = 0 # iterator / counter
+    while i < @secret_word.length # iterate/count once for each item in array
+      if @secret_word.chars[i] == guess # if value at current index == guess
+        @progress[i] = @secret_word.chars[i] # assign the value at current index to the item/underscore at said index in @progress
+      end
+      i += 1 # increment
+    end
+    # split then rejoin chars with spaces between
+    @progress = @progress.chars.join("\s")
+    # @progress does not contain any underscores
+    if !@progress.include?("_")
+      # end_game("win")
+      puts "You won the game! Congratulations!"# debugging / testing / temporary
+      puts "The word was #{@secret_word}."# debugging / testing / temporary
+    else
+      puts "Good guess!"
+      puts "So far, you've tried: #{@letters_used.join(', ')}"
+      puts "\n" # new line
+      get_user_guess
+    end
+  else # guessed letter isn't found in @secret_word
+    @attempts_left -= 1 # lose a life
+    if @attempts_left < 1
+      # end_game("loss")
+      puts "Game Over!  You ran out of lives!"# debugging / testing / temporary
+      puts "The word was #{@secret_word}."# debugging / testing / temporary
+    else
+      puts "Bad luck!"
+      puts "So far, you've tried: #{@letters_used.join(', ')}" # identical to above, dry this out later
+      puts "You have #{@attempts_left} lives left."
+      puts "\n" # new line
+      get_user_guess
+    end
+  end
+
 end
 
 welcome
 
 setup
 
+puts "\nGood luck, #{@username}!"
+puts "The word is the name of a country."
+puts "The word contains #{@secret_word.length} letters."
 
+get_user_guess # game loop
 
-
-get_user_guess
-
-#return username
