@@ -1,7 +1,3 @@
-# ToDo(Add to trello board)
-# - validate secret word
-      # - must not include anything other than letters and spaces
-
 require 'faker'
 
 @secret_word = nil
@@ -51,15 +47,21 @@ def setup
   @attempts_left = 7
   # empty array to store guesses
   @letters_used = []
-  # secret_word letters replaced by "_"
+  # progress will be the secret_word letters replaced with "_"
   @progress = []
-  # secret_word = “random_word_from_faker_gem”
-  @secret_word = Faker::Address.country.upcase
+  # until secret_word contains only alphabetic characters and is < 16 chars
+  until @secret_word =~ /[a-zA-Z]/ and @secret_word.length < 16
+    # generate random word (country)
+    @secret_word = Faker::Address.country.upcase
+  end
   # secret_word letters replaced by "_"
   @secret_word.each_char {|c| 
+      # if char is not a space
       if c != " " then 
+        # append an underscore to progress
         @progress.push("_")
       else
+        # append a space
         @progress.push(" ") 
       end
   }
@@ -82,21 +84,23 @@ def get_user_guess
   end
   # guess has passed validation at this point
 
+  # append the letter / guess to letters_used 
   @letters_used.push(guess)
 
+  # if the guessed letter is found in secret_word
   if @secret_word.include?(guess)
-    progress = @progress.split.join
-    i = 0
-    while i < @secret_word.length - 1
-      if @secret_word.chars[i] == guess
-        progress[i] = @secret_word.chars[i]
+    @progress = @progress.split.join # remove all spaces from progress (temporarily)
+    i = 0 # iterator / counter
+    while i < @secret_word.length # iterate/count once for each item in array
+      if @secret_word.chars[i] == guess # if value at current index == guess
+        @progress[i] = @secret_word.chars[i] # assign that value to the item ("_") at that index in @progress
       end
-      i += 1
+      i += 1 # increment
     end
-    @progress = progress
-    
+    #@progress = @progress
   end
   p @progress
+  get_user_guess
 end
 
 welcome
