@@ -50,11 +50,11 @@ def setup
   # attempts allowed before game over
   @attempts_left = 7
   # empty array to store guesses
-  @letters_used = ["a", "b", "c"]
+  @letters_used = []
   # secret_word letters replaced by "_"
   @progress = []
   # secret_word = “random_word_from_faker_gem”
-  @secret_word = Faker::Address.country
+  @secret_word = Faker::Address.country.upcase
   # secret_word letters replaced by "_"
   @secret_word.each_char {|c| 
       if c != " " then 
@@ -69,7 +69,7 @@ end
 def get_user_guess
   p @secret_word # debugging
   puts "Guess a letter:  #{@progress}"
-  guess = gets.strip
+  guess = gets.strip.upcase
   # if guess doesn't match with any letter a-z or isn't a single character
   if guess !~ /[a-zA-Z]/ or guess.length != 1
     puts "Guess was invalid! Must be a single alphabetic character."
@@ -81,15 +81,22 @@ def get_user_guess
     return get_user_guess #restart the method
   end
   # guess has passed validation at this point
-  # Append user_guess to letters_used
+
   @letters_used.push(guess)
-  
-  #If secret_word includes user_guess then
-    #Loop through secret_word characters
-      #If user_guess == character then
-        #progress[character.index] = character
-  p @letters_used
-  p @secret_word
+
+  if @secret_word.include?(guess)
+    progress = @progress.split.join
+    i = 0
+    while i < @secret_word.length - 1
+      if @secret_word.chars[i] == guess
+        progress[i] = @secret_word.chars[i]
+      end
+      i += 1
+    end
+    @progress = progress
+    
+  end
+  p @progress
 end
 
 welcome
