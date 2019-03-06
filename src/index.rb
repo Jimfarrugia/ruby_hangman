@@ -1,12 +1,14 @@
 require 'faker'
 require 'colorize'
 
-@secret_word = nil
+@secret_word = nil 
 @attempts_left = nil
 @letters_used = nil
 @progress = nil
 @username = nil
-@secret_word_set = false
+#@secret_word_set = false
+# we don't really need this variable because when @secret_word == nil, it evaluates to false.
+# and when @secret_word == "any non-blank string", it evaluates to true.
 
 # Determine weather response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
 def yes? response
@@ -53,16 +55,16 @@ def setup
   # progress will be the secret_word letters replaced with "_"
   @progress = []
   
-  # checking if the @secret_word is not already set
-  if(@secret_word_set)
+  # check if @secret_word already has a non-false value (ie. has been set)
+  if @secret_word
+    # generate and assign it a new random word (country)
     @secret_word = Faker::Address.unique.country.upcase
   end
 
   # until secret_word matches this /regular expression/
   until @secret_word =~ /^[a-zA-Z]{4,12}$/ # 4-12 alphabetic characters
-    # generate random word (country)
+    # generate and assign it a random word (country)
     @secret_word = Faker::Address.unique.country.upcase
-    @secret_word_set = true
   end
   
   # secret_word letters replaced by "_"
