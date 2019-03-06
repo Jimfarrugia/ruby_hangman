@@ -45,6 +45,7 @@ def welcome
 end
 
 # setup the game by assigning value to instance variables to be used throughout
+# display intro for new game
 def setup
   # attempts allowed before game over
   @attempts_left = 7
@@ -78,6 +79,11 @@ def setup
   }
   #joining progress array with spaces for legibility
   @progress = @progress.join(" ")
+
+  # Intro to new game
+  puts "\nGood luck, #{@username}!\n".colorize(:green)
+  puts "The word is the name of a country.".colorize(:light_blue)
+  puts "The word contains #{@secret_word.length} letters.\n".colorize(:light_blue)
 end
 
 # display end_game result
@@ -168,10 +174,6 @@ end # of get_user_guess
 welcome
 
 setup
-
-puts "\nGood luck, #{@username}!\n".colorize(:green)
-puts "The word is the name of a country.".colorize(:light_blue)
-puts "The word contains #{@secret_word.length} letters.\n".colorize(:light_blue)
 
 get_user_guess # game loop
 
