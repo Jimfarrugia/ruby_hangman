@@ -8,7 +8,7 @@ require 'colorize'
 @username = nil
 @secret_word_set = false
 
-# Determine weather response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
+# Determine whether response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
 def yes? response
   case response
     when "y", "Y", "yes", "Yes", "YES"
