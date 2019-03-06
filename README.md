@@ -1,24 +1,36 @@
-Project documentation is to be compiled as a single markdown file named README.md
+# Hangman
+By Jim Farrugia and Natasha Khatri
 
-This file should contain,
+### GitHub Repository
+https://github.com/Jimfarrugia/ruby_hangman
 
-A link to your GitHub repository
-Ensure the repository (repo) is accessible by your Educators
-Description of the app, including,
-Purpose
-Functionality
-Instructions for use
-Screenshots
-Details of design & planning process including,
-Evidence of app idea brainstorming sessions
-app User/Workflow diagram
-Project plan & timeline
-Screenshots of Trello board(s)
-/
-(Root folder of your zip file)
+### Description
+Hangman is an educational game to be played in a command-line interface.
 
-Resources
+### Purpose
+The purpose of the game is to 
 
-All files linked by the README.md file must be included in a folder named docs
+### Functionality
 
-All resources included in this folder must be in either png, jpeg, pdf, or markdown format
+### Instructions for use
+1. Guess what the word is by suggesting one letter at a time.
+2. Each correct letter will be revealed in the word.
+3. For each incorrect guess, you will lose a try.
+4. You only get 7 tries.
+
+### Screenshots
+
+
+### Design & Planning Process
+
+
+##### Evidence of App Idea Brainstorming Sessions
+
+
+##### User/Workflow Diagram
+
+
+##### Project Plan & Timeline
+
+
+##### Screenshots of Trello Board
