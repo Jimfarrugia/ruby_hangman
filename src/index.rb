@@ -1,3 +1,13 @@
+# Colors:
+#   Green  = positive message
+#   Red    = negative message
+#   Yellow = instructions / important data
+### TODO
+# [ ] Add color to welcome screen so it isn't a block of white text
+# [ ] Add color to @secret_word in reveal (maybe yellow or orange)
+# [ ] "Ready to Play? (Y/N)" might stand out and look good in green.
+# [ ]
+# [ ]
 require 'faker'
 require 'colorize'
 
