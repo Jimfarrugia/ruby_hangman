@@ -39,3 +39,5 @@ The purpose of the game is to allow the user to guess what the secret word is by
 ![Initial pseudocode and text content for app](./docs/pseudocode_and_text_content.pdf)
 
 ##### Screenshots of Trello Board
+![User Stories and Initial Ideas](./docs/trello_user_stories_and_initial_ideas.png)
+![Kanban Board on Trello](./docs/trello_kanban_board.png)
