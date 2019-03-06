@@ -101,7 +101,7 @@ def end_game(result)
     puts "Thanks for playing #{@username}. See you next time!\n"
     exit
   else
-    setup #new game 
+    setup #new game
     get_user_guess
   end
 end
@@ -165,8 +165,7 @@ def get_user_guess
       get_user_guess
     end
   end
-
-end
+end # of get_user_guess
 
 welcome
 
