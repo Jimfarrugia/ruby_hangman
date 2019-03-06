@@ -2,13 +2,13 @@
 By Jim Farrugia and Natasha Khatri
 
 ### GitHub Repository
-[GitHub Repo](https://github.com/Jimfarrugia/ruby_hangman)
+https://github.com/Jimfarrugia/ruby_hangman
 
 ### Description
-Hangman is an educational game to be played in a command-line interface.
+Hangman is an educational word guessing game to be played in a command-line interface. The game has been created with Ruby.
 
 ### Purpose
-The purpose of the game is to allow the user to guess letters one at a time to solve what the secret word is. 
+The purpose of Hangman is to provide a fun way of learning vocabulary and testing your general knowledge. This is done by allowing the user to guess the secret word one letter at a time, which can also be helpful for remembering the spelling of new words.
 
 ### Functionality
 - Start program
@@ -33,12 +33,14 @@ The purpose of the game is to allow the user to guess letters one at a time to s
 
 ### Instructions for Use
 1. Ensure your working directory is in the Hangman app root folder. 
-2. In the command-line, enter `ruby ./src/index.rb`
-3. This will bring up the Welcome message and How To Play instructions
-3. Guess what the word is by suggesting one letter at a time.
+2. In the command-line, enter `ruby ./src/index.rb` - this will load the welcome message and instructions on how to play 
+3. Enter yes or no if you would like to play the game.
+4. If you enter yes, the program will ask you to enter a username.
+5. You will see a number of lines `_ _ _ _ _` that represent the number of letters in the word you have to guess.
+6. Guess what the word is by entering one letter at a time.
 4. Each correct letter will be revealed in the word.
-5. For each incorrect guess, you will lose a try.
-6. You only get 7 tries.
+5. For each incorrect guess, you will lose a life. You only get 7 lives.
+6. Once you have finished the game, the program will prompt you for a yes or no if you would like to play again.
 
 ### Screenshots
 
