@@ -43,7 +43,18 @@ The purpose of Hangman is to provide a fun way of learning vocabulary and testin
 6. Once you have finished the game, the program will prompt you for a yes or no if you would like to play again.
 
 ### Screenshots
-
+![Hangman - Welcome screen](./docs/hangman01.png)
+![Hangman - Choosing not play](./docs/hangman02.png)
+![Hangman - Guess a letter](./docs/hangman03.png)
+![Hangman - Incorrect guess](./docs/hangman04.png)
+![Hangman - Inputs for guessing](./docs/hangman05.png)
+![Hangman - Guessing word](./docs/hangman06.png)
+![Hangman - Game over screen](./docs/hangman07.png)
+![Hangman - Game Over and Choosing not to play again](./docs/hangman08.png)
+![Hangman - Game Over and Choosing to play again](./docs/hangman09.png)
+![Hangman - Winner screen](./docs/hangman10.png)
+![Hangman - Winner and Choosing not to play again](./docs/hangman11.png)
+![Hangman - Winner and Choosing to play again](./docs/hangman12.png)
 
 ### Design & Planning Process
 ##### Evidence of App Idea Brainstorming Sessions
