@@ -1,24 +1,12 @@
-# Colors:
-#   Green  = positive message
-#   Red    = negative message
-#   Yellow = instructions / important data
-### TODO
-# [ ] Add color to welcome screen so it isn't a block of white text
-# [ ] Add color to @secret_word in reveal (maybe yellow or orange)
-# [ ] "Ready to Play? (Y/N)" might stand out and look good in green.
-# [ ]
-# [ ]
 require 'faker'
 require 'colorize'
 
+# Declare instance variables
 @secret_word = nil 
 @attempts_left = nil
 @letters_used = nil
 @progress = nil
 @username = nil
-#@secret_word_set = false
-# we don't really need this variable because when @secret_word == nil, it evaluates to false.
-# and when @secret_word == "any non-blank string", it evaluates to true.
 
 # Determine whether response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
 def yes? response
@@ -28,30 +16,30 @@ def yes? response
     when "n", "N", "no", "No", "NO"
       return false
     else
-      puts "Please enter yes or no:"
+      puts "Please enter yes or no:".colorize(:light_red)
       yes?(gets.chomp)
     end
 end
 
 # Welcome the user, present the rules / guide to the game, set a username
 def welcome
-  welcome_message  = "Welcome to Hangman!\n\n"
-  welcome_message += "How to play:\n"
-  welcome_message += "* Try to find the secret word by guessing one letter at a time.\n"
-  welcome_message += "* Each correct guess will reveal those letters in the secret word.\n"
-  welcome_message += "* Guess incorrectly and lose a life.\n"
-  welcome_message += "* If you lose all 7 lives - game over!\n"
+  how_to_play  = "How to play:\n"
+  how_to_play += "* Try to find the secret word by guessing one letter at a time.\n"
+  how_to_play += "* Each correct guess will reveal those letters in the secret word.\n"
+  how_to_play += "* Guess incorrectly and lose a life.\n"
+  how_to_play += "* If you lose all 7 lives - game over!\n"
 
-  puts welcome_message
+  puts "\nWelcome to Hangman!\n\n".colorize(:green)
+  puts how_to_play.colorize(:light_blue)
 
-  puts "Ready to play? (Y/N)"
+  puts "\nReady to play? (Y/N)".colorize(:green)
 
   if not yes?(gets.chomp)
-    puts "Okay. See you next time!\n"
+    puts "Okay. See you next time!\n".colorize(:green)
     exit
   end
 
-  puts "Enter a username:"
+  puts "\nEnter a username:".colorize(:green)
   @username = gets.chomp
   if @username.strip == "" then @username = "Player" end
 end
@@ -95,20 +83,20 @@ end
 # display end_game result
 def end_game(result)
   if result == "win"
-    puts "The word was #{@secret_word}.".colorize(:green)
+    puts "\nThe word was #{@secret_word}.".colorize(:green)
     victory_screen = "Congratulations – You’re on track to having better vocabulary :)\n"
     puts victory_screen.colorize(:green)
   end
   if result == "loss"
     game_over_screen = "Game Over – Better luck next time :(\n"
-    puts "The word was #{@secret_word}.\n".colorize(:red)
+    puts "\nThe word was #{@secret_word}.\n".colorize(:red)
     puts game_over_screen.colorize(:red)
   end
   
-  puts "Play again? (Y/N)"
+  puts "Play again? (Y/N)".colorize(:green)
   
   if not yes?(gets.chomp)
-    puts "Thanks for playing #{@username}. See you next time!\n"
+    puts "\nThanks for playing, #{@username}. See you next time!\n".colorize(:green)
     exit
   else
     setup #new game
@@ -126,14 +114,14 @@ def get_user_guess
   guess = gets.strip.upcase
   # if guess doesn't match with any letter a-z or isn't a single character
   if guess !~ /[a-zA-Z]/ or guess.length != 1
-    puts "Guess was invalid! Must be a single alphabetic character."
+    puts "\nGuess was invalid! Must be a single alphabetic character.".colorize(:light_red)
     puts "\n" # new line
     return get_user_guess # restart the method
   end
   # if guess is already stored in letters_used
   if @letters_used.include?(guess)
-    puts "You've already tried that letter..."
-    puts "So far, you've tried: #{@letters_used.join(', ')}"
+    puts "\nYou've already tried that letter...".colorize(:light_red)
+    puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
     puts "\n" # new line
     return get_user_guess #restart the method
   end
@@ -158,8 +146,8 @@ def get_user_guess
     if !@progress.include?("_")
       end_game("win") # victory
     else
-      puts "Good guess!".colorize(:green)
-      puts "So far, you've tried: #{@letters_used.join(', ')}"
+      puts "\nGood guess!".colorize(:green)
+      puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
       puts "\n" # new line
       get_user_guess
     end
@@ -168,9 +156,9 @@ def get_user_guess
     if @attempts_left < 1
       end_game("loss") # game over
     else
-      puts "Bad luck!".colorize(:red)
-      puts "So far, you've tried: #{@letters_used.join(', ')}" # identical to above, dry this out later
-      puts "You have #{@attempts_left} lives left."
+      puts "\nBad luck!".colorize(:red)
+      puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue) # identical to above, dry this out later
+      puts "You have #{@attempts_left} lives left.".colorize(:light_red)
       puts "\n" # new line
       get_user_guess
     end
@@ -181,9 +169,9 @@ welcome
 
 setup
 
-puts "\nGood luck, #{@username}!"
-puts "The word is the name of a country."
-puts "The word contains #{@secret_word.length} letters."
+puts "\nGood luck, #{@username}!\n".colorize(:green)
+puts "The word is the name of a country.".colorize(:light_blue)
+puts "The word contains #{@secret_word.length} letters.\n".colorize(:light_blue)
 
 get_user_guess # game loop
 
