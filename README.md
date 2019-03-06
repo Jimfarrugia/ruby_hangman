@@ -12,6 +12,7 @@ The purpose of the game is to allow the user to guess what the secret word is by
 
 ### Functionality
 
+
 ### Instructions for Use
 1. Ensure your working directory is in the ruby_hangman root folder. 
 2. In the command-line, enter `ruby ./src/index.rb`
@@ -28,7 +29,9 @@ The purpose of the game is to allow the user to guess what the secret word is by
 
 
 ##### Evidence of App Idea Brainstorming Sessions
-
+![Brainstorming ideas](./docs/brainstorming.jpg)
+![Core Features and Stretch Goals](./docs/core_features_and_stretch_goals.jpg)
+![Draft sketch of user flow diagram](./docs/draft_flow_diagram.jpg)
 
 ##### User/Workflow Diagram
 ![User Workflow Diagram for Hangman app](./docs/Hangman-Workflow.png)
