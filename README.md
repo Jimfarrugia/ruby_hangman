@@ -43,32 +43,55 @@ The purpose of Hangman is to provide a fun way of learning vocabulary and testin
 6. Once you have finished the game, the program will prompt you for a yes or no if you would like to play again.
 
 ### Screenshots
-![Hangman - Welcome screen](./docs/hangman01.png)
-![Hangman - Choosing not play](./docs/hangman02.png)
-![Hangman - Guess a letter](./docs/hangman03.png)
-![Hangman - Incorrect guess](./docs/hangman04.png)
-![Hangman - Inputs for guessing](./docs/hangman05.png)
-![Hangman - Guessing word](./docs/hangman06.png)
-![Hangman - Game over screen](./docs/hangman07.png)
-![Hangman - Game Over and Choosing not to play again](./docs/hangman08.png)
-![Hangman - Game Over and Choosing to play again](./docs/hangman09.png)
-![Hangman - Winner screen](./docs/hangman10.png)
-![Hangman - Winner and Choosing not to play again](./docs/hangman11.png)
-![Hangman - Winner and Choosing to play again](./docs/hangman12.png)
+Welcome screen
+![Hangman - Welcome screen](./docs/hangman01.png)  
+
+Choosing not play
+![Hangman - Choosing not play](./docs/hangman02.png)  
+
+Guess a letter
+![Hangman - Guess a letter](./docs/hangman03.png)  
+
+Incorrect guess
+![Hangman - Incorrect guess](./docs/hangman04.png)  
+
+Inputs for guessing
+![Hangman - Inputs for guessing](./docs/hangman05.png)  
+
+Guessing word
+![Hangman - Guessing word](./docs/hangman06.png)  
+
+Game over screen
+![Hangman - Game over screen](./docs/hangman07.png)  
+
+Game Over and Choosing not to play again
+![Hangman - Game Over and Choosing not to play again](./docs/hangman08.png)  
+
+Game Over and Choosing to play again
+![Hangman - Game Over and Choosing to play again](./docs/hangman09.png)  
+
+Winner screen
+![Hangman - Winner screen](./docs/hangman10.png)  
+
+Winner and Choosing not to play again
+![Hangman - Winner and Choosing not to play again](./docs/hangman11.png)  
+
+Winner and Choosing to play again
+![Hangman - Winner and Choosing to play again](./docs/hangman12.png)  
 
 ### Design & Planning Process
 ##### Evidence of App Idea Brainstorming Sessions
-![Brainstorming ideas](./docs/brainstorming.jpg)
-![Core Features and Stretch Goals](./docs/core_features_and_stretch_goals.jpg)
+![Brainstorming ideas](./docs/brainstorming.jpg)  
+![Core Features and Stretch Goals](./docs/core_features_and_stretch_goals.jpg)  
 ![Draft sketch of user flow diagram](./docs/draft_flow_diagram.jpg)
 
 ##### User/Workflow Diagram
 ![User Workflow Diagram for Hangman app](./docs/Hangman-Workflow.png)
 
 ##### Project Plan & Timeline
-[Project Plan and Timeline document](./docs/project_plan_and_timeline.pdf)
+[Project Plan and Timeline document](./docs/project_plan_and_timeline.pdf)  
 [Initial pseudocode and text content for app](./docs/pseudocode_and_text_content.pdf)
 
 ##### Screenshots of Trello Board
-![User Stories and Initial Ideas](./docs/trello_user_stories_and_initial_ideas.png)
+![User Stories and Initial Ideas](./docs/trello_user_stories_and_initial_ideas.png)  
 ![Kanban Board on Trello](./docs/trello_kanban_board.png)
