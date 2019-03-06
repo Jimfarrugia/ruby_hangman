@@ -35,7 +35,7 @@ def welcome
   puts "\nReady to play? (Y/N)".colorize(:green)
 
   if not yes?(gets.chomp)
-    puts "Okay. See you next time!\n".colorize(:green)
+    puts "\nOkay. See you next time!\n".colorize(:green)
     exit
   end
 
