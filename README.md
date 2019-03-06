@@ -66,8 +66,8 @@ The purpose of Hangman is to provide a fun way of learning vocabulary and testin
 ![User Workflow Diagram for Hangman app](./docs/Hangman-Workflow.png)
 
 ##### Project Plan & Timeline
-![Project Plan and Timeline document](./docs/project_plan_and_timeline.pdf)
-![Initial pseudocode and text content for app](./docs/pseudocode_and_text_content.pdf)
+[Project Plan and Timeline document](./docs/project_plan_and_timeline.pdf)
+[Initial pseudocode and text content for app](./docs/pseudocode_and_text_content.pdf)
 
 ##### Screenshots of Trello Board
 ![User Stories and Initial Ideas](./docs/trello_user_stories_and_initial_ideas.png)
