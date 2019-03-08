@@ -8,6 +8,11 @@ require 'colorize'
 @progress = nil
 @username = nil
 
+# Clear the terminal
+def clear_terminal
+  Gem.win_platform? ? (system "cls") : (system "clear")
+end
+
 # Determine whether response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
 def yes? response
   case response
@@ -29,15 +34,18 @@ def welcome
   how_to_play += "* Guess incorrectly and lose a life.\n"
   how_to_play += "* If you lose all 7 lives - game over!\n"
 
+  clear_terminal
+
   puts "\nWelcome to Hangman!\n\n".colorize(:green)
   puts how_to_play.colorize(:light_blue)
-
   puts "\nReady to play? (Y/N)".colorize(:green)
 
   if not yes?(gets.chomp)
     puts "\nOkay. See you next time!\n".colorize(:green)
     exit
   end
+
+  clear_terminal
 
   puts "\nEnter a username:".colorize(:green)
   @username = gets.chomp
@@ -81,6 +89,7 @@ def setup
   @progress = @progress.join(" ")
 
   # Intro to new game
+  clear_terminal
   puts "\nGood luck, #{@username}!\n".colorize(:green)
   puts "The word is the name of a country.".colorize(:light_blue)
   puts "The word contains #{@secret_word.length} letters.\n".colorize(:light_blue)
@@ -122,12 +131,14 @@ def get_user_guess
   guess = gets.strip.upcase
   # if guess doesn't match with any letter a-z or isn't a single character
   if guess !~ /[a-zA-Z]/ or guess.length != 1
+    clear_terminal
     puts "\nGuess was invalid! Must be a single alphabetic character.".colorize(:light_red)
     puts "\n" # new line
     return get_user_guess # restart the method
   end
   # if guess is already stored in letters_used
   if @letters_used.include?(guess)
+    clear_terminal
     puts "\nYou've already tried that letter...".colorize(:light_red)
     puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
     puts "\n" # new line
@@ -150,6 +161,9 @@ def get_user_guess
     end
     # split then rejoin chars with spaces between
     @progress = @progress.chars.join("\s")
+
+    clear_terminal
+
     # @progress does not contain any underscores
     if !@progress.include?("_")
       end_game("win") # victory
@@ -160,6 +174,7 @@ def get_user_guess
       get_user_guess
     end
   else # guessed letter isn't found in @secret_word
+    clear_terminal
     @attempts_left -= 1 # lose a life
     if @attempts_left < 1
       end_game("loss") # game over
