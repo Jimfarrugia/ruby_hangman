@@ -1,5 +1,6 @@
 require 'faker'
 require 'colorize'
+require "tty-font"
 
 # Declare instance variables
 @secret_word = nil 
@@ -35,9 +36,13 @@ def welcome
   how_to_play += "* If you lose all 7 lives - game over!\n"
 
   clear_terminal
+  
+  # ASCII title (tty-font gem)
+  title_font = TTY::Font.new(:standard)
+  puts title_font.write("HANGMAN").colorize(:red)
 
-  puts "\nWelcome to Hangman!\n\n".colorize(:green)
   puts how_to_play.colorize(:light_blue)
+
   puts "\nReady to play? (Y/N)".colorize(:green)
 
   if not yes?(gets.chomp)
