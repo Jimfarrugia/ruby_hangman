@@ -24,7 +24,7 @@ def yes? response
     else
       puts "Please enter yes or no:".colorize(:light_red)
       yes?(gets.chomp)
-    end
+  end
 end
 
 # Welcome the user, present the rules / guide to the game, set a username
@@ -138,7 +138,11 @@ def get_user_guess
   if guess !~ /[a-zA-Z]/ or guess.length != 1
     clear_terminal
     puts "\nGuess was invalid! Must be a single alphabetic character.".colorize(:light_red)
-    puts "\n" # new line
+    # show letters_used if its not empty
+    if @letters_used != []
+      puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
+    end
+      puts "\n" # new line
     return get_user_guess # restart the method
   end
   # if guess is already stored in letters_used
