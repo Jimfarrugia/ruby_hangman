@@ -1,3 +1,16 @@
+### Changelog:
+
+- Added ASCII-art title to welcome screen with tty-font gem.
+- Screen/terminal clears throughout the game to display only relevant data.
+
+### To Do:
+
+- ASCII-art to display lives left.
+- ASCII-art image on victory.
+- ASCII-art image on game over.
+- Points tally for multiple games.
+- Play sounds after user input based on result of that input.
+
 # Hangman
 
 By Jim Farrugia and Natasha Khatri
