@@ -1,6 +1,5 @@
 require 'faker'
 require 'colorize'
-require "tty-font"
 
 # Declare instance variables
 @secret_word = nil 
@@ -37,9 +36,9 @@ def welcome
 
   clear_terminal
   
-  # ASCII title (tty-font gem)
-  title_font = TTY::Font.new(:standard)
-  puts title_font.write("HANGMAN").colorize(:red)
+  # ASCII title
+  title = File.read('../ascii/title.txt')
+  puts title.colorize(:green)
 
   puts how_to_play.colorize(:light_blue)
 
