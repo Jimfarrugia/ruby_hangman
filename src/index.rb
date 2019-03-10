@@ -2,7 +2,8 @@ require 'faker'
 require 'colorize'
 
 # Declare instance variables
-@secret_word = nil 
+@secret_word = nil
+@attempts_allowed = 7
 @attempts_left = nil
 @letters_used = nil
 @progress = nil
@@ -64,7 +65,7 @@ end
 # setup the game by assigning value to instance variables to be used throughout
 # display intro for new game
 def setup
-  @attempts_left = 7
+  @attempts_left = @attempts_allowed
   @letters_used = []
   @progress = []
   # check if @secret_word already has a non-false value (ie. has been set)
@@ -99,9 +100,7 @@ def end_game(result)
     puts victory_screen.colorize(:green)
   end
   if result == "loss"
-    clear_terminal
     puts ascii_img 'game_over.txt'
-  
     game_over_screen = "\nGame Over - You ran out of lives!
                         \nThe word was #{@secret_word}.\n"
     puts game_over_screen.colorize(:red)
@@ -129,6 +128,9 @@ def get_user_guess
   # if guess doesn't match with any letter a-z or isn't a single character
   if guess !~ /[a-zA-Z]/ or guess.length != 1
     clear_terminal
+    if @attempts_left < @attempts_allowed
+      puts ascii_img "#{@attempts_left}_lives_left.txt"
+    end
     puts "\nGuess was invalid! Must be a single alphabetic character.".colorize(:light_red)
     # show letters_used if its not empty
     if @letters_used != []
@@ -140,6 +142,9 @@ def get_user_guess
   # if guess is already stored in letters_used
   if @letters_used.include?(guess)
     clear_terminal
+    if @attempts_left < @attempts_allowed
+      puts ascii_img "#{@attempts_left}_lives_left.txt"
+    end
     puts "\nYou've already tried that letter...".colorize(:light_red)
     puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
     puts "\n" # new line
@@ -170,7 +175,7 @@ def get_user_guess
       end_game("win") # victory
     else
       # if player has less than 7 lives, display ascii
-      if @attempts_left < 7
+      if @attempts_left < @attempts_allowed
         puts ascii_img "#{@attempts_left}_lives_left.txt"
       end
       puts "\nGood guess!".colorize(:green)
