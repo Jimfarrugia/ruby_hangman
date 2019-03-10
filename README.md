@@ -1,13 +1,14 @@
 ### Changelog:
 
+- ASCII-art image on victory.
+- ASCII-art image on game over.
+- ASCII-art to display lives left.
 - Added ASCII-art title to welcome screen with tty-font gem.
 - Screen/terminal clears throughout the game to display only relevant data.
 
 ### To Do:
 
-- ASCII-art to display lives left.
-- ASCII-art image on victory.
-- ASCII-art image on game over.
+- Display ascii art depictions of lives-left after clearing terminal when displaying validation messages and the like.
 - Points tally for multiple games.
 - Play sounds after user input based on result of that input.
 
