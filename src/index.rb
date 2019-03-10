@@ -103,6 +103,10 @@ end
 # display end_game result
 def end_game(result)
   if result == "win"
+    ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', 'victory.txt')
+    ascii_img = File.read(ascii_path)
+    puts ascii_img
+
     victory_screen  = "\nYou won!
                        \nThe word was #{@secret_word}.\n"
     puts victory_screen.colorize(:green)
@@ -180,6 +184,13 @@ def get_user_guess
     if !@progress.include?("_")
       end_game("win") # victory
     else
+      # if player has less than 7 lives
+      if @attempts_left < 7
+        # display ascii
+        ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', "#{@attempts_left}_lives_left.txt")
+        ascii_img = File.read(ascii_path)
+        puts ascii_img
+      end
       puts "\nGood guess!".colorize(:green)
       puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
       puts "\n" # new line
