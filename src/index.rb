@@ -64,39 +64,25 @@ end
 # setup the game by assigning value to instance variables to be used throughout
 # display intro for new game
 def setup
-  # attempts allowed before game over
   @attempts_left = 7
-  # empty array to store guesses
   @letters_used = []
-  # progress will be the secret_word letters replaced with "_"
   @progress = []
-  
   # check if @secret_word already has a non-false value (ie. has been set)
   if @secret_word
     # generate and assign it a new random word (country)
     @secret_word = Faker::Address.unique.country.upcase
   end
-
   # until secret_word matches this /regular expression/
   until @secret_word =~ /^[a-zA-Z]{4,12}$/ # 4-12 alphabetic characters
     # generate and assign it a random word (country)
     @secret_word = Faker::Address.unique.country.upcase
   end
-  
-  # secret_word letters replaced by "_"
-  @secret_word.each_char {|c| 
-      # if char is not a space
-      if c != " " then 
-        # append an underscore to progress
-        @progress.push("_")
-      else
-        # append a space
-        @progress.push(" ") 
-      end
+  # Add an underscore to progress array for each char in secret_word
+  @secret_word.each_char { |char| 
+    @progress.push("_")
   }
-  #joining progress array with spaces for legibility
+  #join underscores progress array with spaces for legibility
   @progress = @progress.join(" ")
-
   # Intro to new game
   clear_terminal
   puts "\nGood luck, #{@username}!\n".colorize(:green)
@@ -108,7 +94,6 @@ end
 def end_game(result)
   if result == "win"
     puts ascii_img 'victory.txt'
-
     victory_screen  = "\nYou won!
                        \nThe word was #{@secret_word}.\n"
     puts victory_screen.colorize(:green)
