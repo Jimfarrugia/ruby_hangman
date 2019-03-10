@@ -108,6 +108,11 @@ def end_game(result)
     puts victory_screen.colorize(:green)
   end
   if result == "loss"
+    clear_terminal
+    ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', 'game_over.txt')
+    ascii_img = File.read(ascii_path)
+    puts ascii_img
+  
     game_over_screen = "\nGame Over - You ran out of lives!
                         \nThe word was #{@secret_word}.\n"
     puts game_over_screen.colorize(:red)
@@ -186,6 +191,9 @@ def get_user_guess
     if @attempts_left < 1
       end_game("loss") # game over
     else
+      ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', "#{@attempts_left}_lives_left.txt")
+      ascii_img = File.read(ascii_path)
+      puts ascii_img
       puts "\nBad luck!".colorize(:red)
       puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue) # identical to above, dry this out later
       puts "You have #{@attempts_left} lives left.".colorize(:light_red)
