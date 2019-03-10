@@ -37,7 +37,8 @@ def welcome
   clear_terminal
   
   # ASCII title
-  title = File.read('../ascii/title.txt')
+  title_path = File.join(File.dirname(__FILE__), '..', 'ascii', 'title.txt')
+  title = File.read(title_path)
   puts title.colorize(:green)
 
   puts how_to_play.colorize(:light_blue)
