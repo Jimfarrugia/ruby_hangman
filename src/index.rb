@@ -103,13 +103,13 @@ end
 # display end_game result
 def end_game(result)
   if result == "win"
-    puts "\nYou won!"
+    puts "\nYou won!".colorize(:green)
     puts "\nThe word was #{@secret_word}.".colorize(:green)
     victory_screen = "Congratulations – You’re on track to having better vocabulary :)\n"
     puts victory_screen.colorize(:green)
   end
   if result == "loss"
-    puts "\nYou ran out of lives!"
+    puts "\nYou ran out of lives!".colorize(:red)
     game_over_screen = "Game Over – Better luck next time :(\n"
     puts "\nThe word was #{@secret_word}.\n".colorize(:light_red)
     puts game_over_screen.colorize(:red)
