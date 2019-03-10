@@ -1,13 +1,19 @@
 require 'faker'
 require 'colorize'
-require "tty-font"
 
 # Declare instance variables
-@secret_word = nil 
+@secret_word = nil
+@attempts_allowed = 7
 @attempts_left = nil
 @letters_used = nil
 @progress = nil
 @username = nil
+
+# Build path and read ascii txt file
+def ascii_img file_name
+  ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', file_name)
+  img = File.read(ascii_path)
+end
 
 # Clear the terminal
 def clear_terminal
@@ -37,9 +43,8 @@ def welcome
 
   clear_terminal
   
-  # ASCII title (tty-font gem)
-  title_font = TTY::Font.new(:standard)
-  puts title_font.write("HANGMAN").colorize(:red)
+  # ASCII title
+  puts ascii_img('title.txt').colorize(:green)
 
   puts how_to_play.colorize(:light_blue)
 
@@ -60,39 +65,25 @@ end
 # setup the game by assigning value to instance variables to be used throughout
 # display intro for new game
 def setup
-  # attempts allowed before game over
-  @attempts_left = 7
-  # empty array to store guesses
+  @attempts_left = @attempts_allowed
   @letters_used = []
-  # progress will be the secret_word letters replaced with "_"
   @progress = []
-  
   # check if @secret_word already has a non-false value (ie. has been set)
   if @secret_word
     # generate and assign it a new random word (country)
     @secret_word = Faker::Address.unique.country.upcase
   end
-
   # until secret_word matches this /regular expression/
   until @secret_word =~ /^[a-zA-Z]{4,12}$/ # 4-12 alphabetic characters
     # generate and assign it a random word (country)
     @secret_word = Faker::Address.unique.country.upcase
   end
-  
-  # secret_word letters replaced by "_"
-  @secret_word.each_char {|c| 
-      # if char is not a space
-      if c != " " then 
-        # append an underscore to progress
-        @progress.push("_")
-      else
-        # append a space
-        @progress.push(" ") 
-      end
+  # Add an underscore to progress array for each char in secret_word
+  @secret_word.each_char { |char| 
+    @progress.push("_")
   }
-  #joining progress array with spaces for legibility
+  #join underscores progress array with spaces for legibility
   @progress = @progress.join(" ")
-
   # Intro to new game
   clear_terminal
   puts "\nGood luck, #{@username}!\n".colorize(:green)
@@ -103,15 +94,15 @@ end
 # display end_game result
 def end_game(result)
   if result == "win"
-    puts "\nYou won!"
-    puts "\nThe word was #{@secret_word}.".colorize(:green)
-    victory_screen = "Congratulations – You’re on track to having better vocabulary :)\n"
+    puts ascii_img 'victory.txt'
+    victory_screen  = "\nYou won!
+                       \nThe word was #{@secret_word}.\n"
     puts victory_screen.colorize(:green)
   end
   if result == "loss"
-    puts "\nYou ran out of lives!"
-    game_over_screen = "Game Over – Better luck next time :(\n"
-    puts "\nThe word was #{@secret_word}.\n".colorize(:light_red)
+    puts ascii_img 'game_over.txt'
+    game_over_screen = "\nGame Over - You ran out of lives!
+                        \nThe word was #{@secret_word}.\n"
     puts game_over_screen.colorize(:red)
   end
   
@@ -137,6 +128,9 @@ def get_user_guess
   # if guess doesn't match with any letter a-z or isn't a single character
   if guess !~ /[a-zA-Z]/ or guess.length != 1
     clear_terminal
+    if @attempts_left < @attempts_allowed
+      puts ascii_img "#{@attempts_left}_lives_left.txt"
+    end
     puts "\nGuess was invalid! Must be a single alphabetic character.".colorize(:light_red)
     # show letters_used if its not empty
     if @letters_used != []
@@ -148,6 +142,9 @@ def get_user_guess
   # if guess is already stored in letters_used
   if @letters_used.include?(guess)
     clear_terminal
+    if @attempts_left < @attempts_allowed
+      puts ascii_img "#{@attempts_left}_lives_left.txt"
+    end
     puts "\nYou've already tried that letter...".colorize(:light_red)
     puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
     puts "\n" # new line
@@ -177,6 +174,10 @@ def get_user_guess
     if !@progress.include?("_")
       end_game("win") # victory
     else
+      # if player has less than 7 lives, display ascii
+      if @attempts_left < @attempts_allowed
+        puts ascii_img "#{@attempts_left}_lives_left.txt"
+      end
       puts "\nGood guess!".colorize(:green)
       puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
       puts "\n" # new line
@@ -188,6 +189,7 @@ def get_user_guess
     if @attempts_left < 1
       end_game("loss") # game over
     else
+      puts ascii_img "#{@attempts_left}_lives_left.txt"
       puts "\nBad luck!".colorize(:red)
       puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue) # identical to above, dry this out later
       puts "You have #{@attempts_left} lives left.".colorize(:light_red)
