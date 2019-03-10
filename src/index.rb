@@ -8,6 +8,12 @@ require 'colorize'
 @progress = nil
 @username = nil
 
+# Build path and read ascii txt file
+def ascii_img file_name
+  ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', file_name)
+  img = File.read(ascii_path)
+end
+
 # Clear the terminal
 def clear_terminal
   Gem.win_platform? ? (system "cls") : (system "clear")
@@ -37,9 +43,7 @@ def welcome
   clear_terminal
   
   # ASCII title
-  title_path = File.join(File.dirname(__FILE__), '..', 'ascii', 'title.txt')
-  title = File.read(title_path)
-  puts title.colorize(:green)
+  puts ascii_img('title.txt').colorize(:green)
 
   puts how_to_play.colorize(:light_blue)
 
@@ -103,9 +107,7 @@ end
 # display end_game result
 def end_game(result)
   if result == "win"
-    ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', 'victory.txt')
-    ascii_img = File.read(ascii_path)
-    puts ascii_img
+    puts ascii_img 'victory.txt'
 
     victory_screen  = "\nYou won!
                        \nThe word was #{@secret_word}.\n"
@@ -113,9 +115,7 @@ def end_game(result)
   end
   if result == "loss"
     clear_terminal
-    ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', 'game_over.txt')
-    ascii_img = File.read(ascii_path)
-    puts ascii_img
+    puts ascii_img 'game_over.txt'
   
     game_over_screen = "\nGame Over - You ran out of lives!
                         \nThe word was #{@secret_word}.\n"
@@ -184,12 +184,9 @@ def get_user_guess
     if !@progress.include?("_")
       end_game("win") # victory
     else
-      # if player has less than 7 lives
+      # if player has less than 7 lives, display ascii
       if @attempts_left < 7
-        # display ascii
-        ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', "#{@attempts_left}_lives_left.txt")
-        ascii_img = File.read(ascii_path)
-        puts ascii_img
+        puts ascii_img "#{@attempts_left}_lives_left.txt"
       end
       puts "\nGood guess!".colorize(:green)
       puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue)
@@ -202,9 +199,7 @@ def get_user_guess
     if @attempts_left < 1
       end_game("loss") # game over
     else
-      ascii_path = File.join(File.dirname(__FILE__), '..', 'ascii', "#{@attempts_left}_lives_left.txt")
-      ascii_img = File.read(ascii_path)
-      puts ascii_img
+      puts ascii_img "#{@attempts_left}_lives_left.txt"
       puts "\nBad luck!".colorize(:red)
       puts "So far, you've tried: #{@letters_used.join(', ')}".colorize(:light_blue) # identical to above, dry this out later
       puts "You have #{@attempts_left} lives left.".colorize(:light_red)

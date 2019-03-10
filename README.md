@@ -1,5 +1,6 @@
 ### Changelog:
 
+- Create a method for building path and displaying ascii images. (DRY)
 - ASCII-art image on victory.
 - ASCII-art image on game over.
 - ASCII-art to display lives left.
@@ -8,7 +9,7 @@
 
 ### To Do:
 
-- Display ascii art depictions of lives-left after clearing terminal when displaying validation messages and the like.
+- Display ascii art depictions of lives-left after clearing terminal when displaying validation messages and the like, unless zero lives-lost.
 - Points tally for multiple games.
 - Play sounds after user input based on result of that input.
 
