@@ -11,7 +11,11 @@
 ### To Do:
 
 - Points tally for multiple games.
+- Allow for words with spaces
+- Allow for words with special characters / punctuation. (punctuation should be filled-in for the user)
 - Play sounds after user input based on result of that input.
+
+---
 
 # Hangman
 
