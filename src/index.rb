@@ -22,10 +22,10 @@ end
 
 # Determine whether response is 'like yes'(=>true) or 'like no'(=>false) or neither(=>try again)
 def yes? response
-  case response
-    when "y", "Y", "yes", "Yes", "YES"
+  case response.downcase
+    when "y", "yes"
       return true
-    when "n", "N", "no", "No", "NO"
+    when "n", "no"
       return false
     else
       puts "Please enter yes or no:".colorize(:light_red)
